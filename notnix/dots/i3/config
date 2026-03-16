@@ -1,0 +1,185 @@
+
+set $mod Mod4
+##########################################################		       
+#		      STARTUP				 #
+##########################################################
+# SYS #
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id nm-applet 
+# USER #
+exec_always --no-startup-id feh --bg-fill /etc/nixos/notnix/media/mtn.jpg
+exec_always --no-startup-id /etc/nixos/notnix/scripts/polybar/launch.sh
+exec_always --no-startup-id xrandr --output DP-2 --mode 1920x1080 --rate 144
+
+# APP WORKSPACES #
+assign [class="steam"] 5
+assign [class="Spotify"] 7
+assign [class="legcord"] 8 
+# APPS #
+#exec --no-startup-id kitty
+#########################################################
+#		       VISUALS				#
+#########################################################
+# WIN HEADERS/GENERAL FONT #
+font pango:FiraMono Nerd Font:style=Bold 14
+
+# GAPS #
+gaps inner 8
+#gaps outer 3
+gaps top 4
+gaps bottom 28
+gaps left 4
+gaps right 4
+
+# NO BORDERS IF 1 WINDOW #
+smart_borders yes
+# BORDERS #
+default_border pixel 1
+default_floating_border pixel 1
+# FOCUSED #			BORDER  BACKGR  TEXT    INDICAT #CHILD-BORDER
+client.focused			#FFE699 #FFFFD4 #FFFEC9 #FFE699 
+client.unfocused		#00000000 #00000000 #FFFFD4 #00000000  
+client.focused_inactive		#00000000 #00000000 #FFFFD4 #00000000
+client.urgent			#B53333 #B53333 #000000 #B53333
+client.background		#363636
+# STEAM BORDERS FIX #
+#for_window [class="steam"] border pixel 1
+#for_window [class="steamwebhelper"] border pixel 1
+#########################################################
+#		       WORKSPACES			#
+#########################################################
+# WORKSPACE VARIABLES #
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "0"
+
+# SWITCH WORKSPACES #
+bindsym --whole-window $mod+button4 workspace prev
+bindsym --whole-window $mod+button5 workspace next
+bindsym $mod+z workspace prev
+bindsym $mod+x workspace next
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws0
+# MOVE CONTAINER #
+bindsym --whole-window $mod+Shift+button4 move container to workspace prev
+bindsym --whole-window $mod+Shift+button5 move container to workspace next
+bindsym $mod+Shift+z move container to workspace prev
+bindsym $mod+Shift+x move container to workspace next
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws0
+
+#########################################################
+#		       APP-KEYBINDINGS			#
+#########################################################
+# ROFI #
+bindsym $mod+d exec "rofi -modi drun,run -show drun"
+# KITTY #
+bindsym $mod+Return exec kitty -d ~/ 
+# LIBREWOLF #
+bindsym $mod+b exec librewolf
+bindsym Print exec --no-startup-id maim -s ~/media/screenshots/screenshot-$(date +%Y%m%d_%H%M%S).png
+#########################################################
+#		       KEYBINDS 			#
+#########################################################
+# I3 Restart #
+bindsym $mod+Shift+r restart
+# Kill Window #
+bindsym $mod+q kill
+# Fullscreen #
+bindsym $mod+f fullscreen toggle
+#########################################################
+#		       LAYOUT & ORIENTATION		#
+#########################################################
+# Split Horizontal #
+bindsym $mod+h split h
+# Split Vertical #
+bindsym $mod+v split v
+# Change Stacking / Split #
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+#########################################################
+#		       FLOATING				#
+#########################################################
+# TOGGLE FLOAT/TILE #
+bindsym $mod+Shift+space floating toggle
+# DRAGGING (default is mouse + mod on titlebar)
+floating_modifier $mod
+tiling_drag modifier titlebar
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+#########################################################
+#		       FOCUS    			#
+#########################################################
+# Prevent mouse hover from changing focus
+focus_follows_mouse no
+# CHANGE
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# PARENT/CHILD
+#bindsym $mod+ focus parent
+#bindsym $mod+ focus child
+#########################################################
+#		       MOVE     			#
+#########################################################
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+#########################################################
+#		       RESIZE    			#
+#########################################################
+bindsym $mod+r mode "resize"
+mode "resize" {
+        bindsym j resize shrink width 2 px or 2 ppt
+        bindsym k resize grow height 2 px or 2 ppt
+        bindsym l resize shrink height 2 px or 2 ppt
+        bindsym semicolon resize grow width 2 px or 2 ppt
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 2 px or 2 ppt
+        bindsym Down resize grow height 2 px or 2 ppt
+        bindsym Up resize shrink height 2 px or 2 ppt
+        bindsym Right resize grow width 2 px or 2 ppt
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+##########################################################
+# SCREEN LOCK DEFAULTS
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
