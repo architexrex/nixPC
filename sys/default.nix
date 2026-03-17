@@ -9,5 +9,7 @@
 		./fonts.nix
 
 		./users.nix
+	
+		./systemd.nix
 	];
 }
